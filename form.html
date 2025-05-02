@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/form.css" />
+    <title>Formulario con EmailJS</title>
+  </head>
+
+  <body>
+    <form id="contact-form" class="form">
+      <div class="flex">
+        <label>
+          <input name="firstname" required type="text" class="input" />
+          <span>Nombre</span>
+        </label>
+
+        <label>
+          <input name="lastname" required type="text" class="input" />
+          <span>Apellido</span>
+        </label>
+      </div>
+
+      <label>
+        <input name="email" required type="email" class="input" />
+        <span>Email</span>
+      </label>
+
+      <label>
+        <textarea name="message" required rows="3" class="input01"></textarea>
+        <span>Mensaje</span>
+      </label>
+
+      <button type="submit" class="fancy">
+        <span class="top-key"></span>
+        <span class="text">Enviar</span>
+        <span class="bottom-key-1"></span>
+        <span class="bottom-key-2"></span>
+      </button>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+      emailjs.init("4pVh9yp4Fi30cNVsA");
+
+      const form = document.getElementById("contact-form");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton.querySelector(".text");
+        const originalContent = originalText.textContent;
+
+        // Bloquear y mostrar "Procesando..."
+        submitButton.disabled = true;
+        submitButton.classList.add("disabled");
+        originalText.textContent = "Procesando...";
+
+        emailjs.sendForm("service_k1ewwe6", "template_yf8abgr", form).then(
+          () => {
+            form.reset();
+            submitButton.disabled = false;
+            submitButton.classList.remove("disabled");
+            originalText.textContent = originalContent;
+          },
+          (error) => {
+            console.error("EmailJS error:", error);
+            submitButton.disabled = false;
+            submitButton.classList.remove("disabled");
+            originalText.textContent = originalContent;
+          }
+        );
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,140 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles/footer.css" />
+    <link rel="stylesheet" href="styles/form.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <footer class="custom-footer" id="contacto">
+      <section class="py-5">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+              <h2 class="mb-4">Contactame</h2>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 text-center"></div>
+          <div class="col-md-3">
+            <form id="contact-form" class="form">
+              <div class="flex">
+                <label>
+                  <input name="firstname" required type="text" class="input" />
+                  <span>Nombre</span>
+                </label>
+
+                <label>
+                  <input name="lastname" required type="text" class="input" />
+                  <span>Apellido</span>
+                </label>
+              </div>
+
+              <label>
+                <input name="email" required type="email" class="input" />
+                <span>Email</span>
+              </label>
+
+              <label>
+                <textarea
+                  name="message"
+                  required
+                  rows="3"
+                  class="input01"
+                ></textarea>
+                <span>Mensaje</span>
+              </label>
+
+              <button type="submit" class="fancy">
+                <span class="top-key"></span>
+                <span class="text">Enviar</span>
+                <span class="bottom-key-1"></span>
+                <span class="bottom-key-2"></span>
+              </button>
+            </form>
+          </div>
+          <div
+            class="col-md-6 text-center d-flex justify-content-md-center align-items-md-center min-vh-md-100"
+          >
+            <a
+              href="https://wa.me/+5493875220380"
+              target="_blank"
+              class="text-dark me-5"
+            >
+              <i class="bi bi-whatsapp fs-2"></i>
+            </a>
+            <a
+              href="https://github.com/LucasExeVargas"
+              target="_blank"
+              class="text-dark me-5"
+            >
+              <i class="bi bi-github fs-2"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/vargas.lucas___"
+              target="_blank"
+              class="text-dark me-5"
+            >
+              <i class="bi bi-instagram fs-2"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/lucas-vargas-a75268274"
+              target="_blank"
+              class="text-dark"
+            >
+              <i class="bi bi-linkedin fs-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+      emailjs.init("4pVh9yp4Fi30cNVsA");
+
+      const form = document.getElementById("contact-form");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton.querySelector(".text");
+        const originalContent = originalText.textContent;
+
+        // Bloquear y mostrar "Procesando..."
+        submitButton.disabled = true;
+        submitButton.classList.add("disabled");
+        originalText.textContent = "Procesando...";
+
+        emailjs.sendForm("service_k1ewwe6", "template_yf8abgr", form).then(
+          () => {
+            form.reset();
+            submitButton.disabled = false;
+            submitButton.classList.remove("disabled");
+            originalText.textContent = originalContent;
+          },
+          (error) => {
+            console.error("EmailJS error:", error);
+            submitButton.disabled = false;
+            submitButton.classList.remove("disabled");
+            originalText.textContent = originalContent;
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
