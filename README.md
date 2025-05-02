@@ -20,7 +20,7 @@ Este portfolio fue construido utilizando las siguientes tecnologías y herramien
 - **HTML5**  
 - **CSS3**  
 - **JavaScript**  
-- **PHP**  
+- **PHP** (https://github.com/LucasExeVargas/portfolio-lucas-vargas-php)
 - **Bootstrap**  
 - **AJAX**
 
