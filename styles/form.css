@@ -354,3 +354,9 @@ button.disabled {
   cursor: not-allowed;
 }
 /* Remove the old dark theme styles that used body.dark-theme selectors */
+@media (max-width: 767.98px) {
+  .form {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
