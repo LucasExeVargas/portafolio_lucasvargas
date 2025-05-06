@@ -26,6 +26,7 @@
     />
     <link rel="stylesheet" href="styles/footer.css" />
     <link rel="stylesheet" href="styles/form.css" />
+    <link rel="stylesheet" href="styles/modal.css" />
     <style>
       body {
         visibility: hidden;
@@ -414,6 +415,22 @@
         $("#cards").load("cards.html");
       });
     </script>
+    <div id="agradecimiento-modal" class="modal-overlay">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>¡Gracias por contactarme!</h3>
+          <button class="modal-close" id="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>He recibido tu mensaje correctamente.</p>
+          <p>Me pondré en contacto contigo lo antes posible.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-button" id="modal-ok">Aceptar</button>
+        </div>
+      </div>
+    </div>
+
     <script>
       window.addEventListener("load", () => {
         // Cuando toda la página (incluidas imágenes) ha cargado
@@ -425,6 +442,25 @@
       emailjs.init("4pVh9yp4Fi30cNVsA");
 
       const form = document.getElementById("contact-form");
+      const modal = document.getElementById("agradecimiento-modal");
+      const closeBtn = document.getElementById("modal-close");
+      const okBtn = document.getElementById("modal-ok");
+
+      // Función para cerrar el modal
+      function closeModal() {
+        modal.classList.remove("show");
+      }
+
+      // Eventos para cerrar el modal
+      closeBtn.addEventListener("click", closeModal);
+      okBtn.addEventListener("click", closeModal);
+
+      // También cerrar el modal si se hace clic fuera de él
+      window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -440,6 +476,10 @@
 
         emailjs.sendForm("service_k1ewwe6", "template_yf8abgr", form).then(
           () => {
+            // Mostrar el modal en lugar del alert
+            modal.classList.add("show");
+
+            // Resetear el formulario
             form.reset();
             submitButton.disabled = false;
             submitButton.classList.remove("disabled");
@@ -453,22 +493,6 @@
           }
         );
       });
-    </script>
-    <script>
-      document
-        .querySelector(".navbar-toggler")
-        .addEventListener("click", function () {
-          const navbarCollapse = document.querySelector("#navbarTogglerMobile");
-          const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-            toggle: false,
-          });
-
-          if (navbarCollapse.classList.contains("show")) {
-            bsCollapse.hide();
-          } else {
-            bsCollapse.show();
-          }
-        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
